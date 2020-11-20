@@ -1,26 +1,31 @@
 import React, { useState } from 'react';
-import { Text, View, Image } from 'react-native';
+import { Text, View, ScrollView } from 'react-native';
 import { Button, Input } from '../../components';
 import { colors } from '../../utils';
 import { IconBackSVG, LoginSVG } from '../../assets';
-import { ScrollView } from 'react-native-gesture-handler';
+import { useSelector, useDispatch } from 'react-redux';
+import { setForm } from '../../redux';
 
 const Register = () => {
-    const [form, setForm] = useState({
-        fullName: "",
-        email: "",
-        password: ""
-    });
+    const { form } = useSelector(state => state.RegisterReducer);
+    const dispatch = useDispatch();
+
+    // const [form, setForm] = useState({
+    //     fullName: '',
+    //     email: '',
+    //     password: ''
+    // });
 
     const onRegister = () => {
         console.log("Data yang dikirim adalah: ", form);
     };
 
-    const onInputChange = (value, input) => {
-        setForm({
-            ...form,
-            [input]: value
-        });
+    const onInputChange = (value, inputType) => {
+        // setForm({
+        //     ...form,
+        //     [inputType]: value
+        // });
+        dispatch(setForm(inputType, value));
     };
 
     return (
@@ -28,25 +33,27 @@ const Register = () => {
             <ScrollView showsVerticalScrollIndicator={false}>
                 <IconBackSVG width={25} height={25} />
                 <LoginSVG width={200} height={150} />
-                <Text style={styles.register.descriptionText}>Mohon mengisi beberapa data untuk proses pendaftaran anda</Text>
+                <Text style={styles.register.descriptionText}>
+                Mohon mengisi beberapa data untuk proses pendaftaran anda
+                </Text>
 
                 <View style={styles.space(64)} />
                 <Input 
                     placeholder="Nama Lengkap" 
                     value={form.fullName} 
-                    onChangeText={value => onInputChange(value, 'fullName')}
+                    onChangeText={(value) => onInputChange(value, 'fullName')}
                 />
                 <View style={styles.space(33)} />
                 <Input 
                     placeholder="Email"
                     value={form.email} 
-                    onChangeText={value => onInputChange(value, 'email')}
+                    onChangeText={(value) => onInputChange(value, 'email')}
                 />
                 <View style={styles.space(33)} />
                 <Input 
                     placeholder="Password" 
                     value={form.password} 
-                    onChangeText={value => onInputChange(value, 'password')}
+                    onChangeText={(value) => onInputChange(value, 'password')}
                     secureTextEntry={true}
                 />
                 <View style={styles.space(83)} />

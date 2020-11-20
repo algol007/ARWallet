@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { colors } from '../../../utils';
 
